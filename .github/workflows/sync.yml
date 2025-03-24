@@ -1,0 +1,35 @@
+name: Sync Fork with Upstream
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"  # Executa todo domingo à meia-noite UTC
+  push:
+    branches:
+      - main  # Executa quando houver push no branch 'main'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest  # Usando o Ubuntu como runner
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Faz checkout do seu fork no GitHub
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "Percio Andrade"
+          git config --global user.email "perciocastelo@gmail.com"  # Pode usar um e-mail genérico ou seu próprio
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/CISOfy/lynis  # Adiciona o repositório original como remoto
+
+      - name: Fetch upstream changes
+        run: git fetch upstream  # Baixa as atualizações do repositório original
+
+      - name: Reset to upstream/main
+        run: git reset --hard upstream/main  # Reseta o fork para o estado do repositório original
+
+      - name: Push changes to fork
+        run: git push origin main --force  # Força o push para o seu fork, substituindo o histórico
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Token de autenticação
