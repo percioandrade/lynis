@@ -5,11 +5,10 @@
 #   Lynis
 # ------------------
 #
-# Copyright 2007-2013, Michael Boelen
-# Copyright 2007-2021, CISOfy
+# Copyright (c) Michael Boelen, CISOfy, and many contributors.
 #
 # Website  : https://cisofy.com
-# Blog     : http://linux-audit.com
+# Blog     : https://linux-audit.com/
 # GitHub   : https://github.com/CISOfy/lynis
 #
 # Lynis comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
@@ -25,7 +24,7 @@
     LDAP_AUTH_ENABLED=0
     LDAP_PAM_ENABLED=0
     LDAP_CONF_LOCATIONS="${ROOTDIR}etc/ldap.conf ${ROOTDIR}etc/ldap/ldap.conf ${ROOTDIR}etc/openldap/ldap.conf ${ROOTDIR}usr/local/etc/ldap.conf ${ROOTDIR}usr/local/etc/openldap/ldap.conf"
-    PAM_FILE_LOCATIONS="${ROOTDIR}usr/lib/aarch64-linux-gnu/security ${ROOTDIR}lib/arm-linux-gnueabihf/security ${ROOTDIR}lib/i386-linux-gnu/security ${ROOTDIR}lib/security ${ROOTDIR}lib/x86_64-linux-gnu/security ${ROOTDIR}lib64/security ${ROOTDIR}usr/lib /usr/lib/security"
+    PAM_FILE_LOCATIONS="${ROOTDIR}usr/lib/aarch64-linux-gnu/security ${ROOTDIR}lib/arm-linux-gnueabihf/security ${ROOTDIR}lib/i386-linux-gnu/security ${ROOTDIR}lib/security ${ROOTDIR}lib/x86_64-linux-gnu/security ${ROOTDIR}lib/powerpc64le-linux-gnu/security ${ROOTDIR}lib64/security ${ROOTDIR}usr/lib /usr/lib/security"
     SUDOERS_LOCATIONS="${ROOTDIR}etc/sudoers ${ROOTDIR}usr/local/etc/sudoers ${ROOTDIR}usr/pkg/etc/sudoers"
     SUDOERS_FILE=""
 #

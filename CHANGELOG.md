@@ -1,12 +1,27 @@
 # Lynis Changelog
 
-## Lynis 3.1.4 (not released yet)
+## Lynis 3.1.5 (not released yet)
+
+### Added
+- Support for OpenWrt
+
+### Changed
+- Corrected detection of service manager SMF
+- Extended GetHostID function to allow HostID and HostID2 creation on OpenWrt
+- Check modules also under /usr/lib/modules.d
+
+---------------------------------------------------------------------------------
+
+## Lynis 3.1.4 (2025-01-28)
 
 ### Changed
 - Update of translations: Portuguese
 - Add macOS Sequoia
 - Update of EOL database
 - Bugfix for using slashes in parameters (SafeInput function)
+- Simplified copyright line and meta data in files
+- Support for powerpc64le in authentication section
+- Don't show error "kadmin.local: unable to get default realm"
 
 ---------------------------------------------------------------------------------
 

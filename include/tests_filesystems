@@ -5,11 +5,10 @@
 #   Lynis
 # ------------------
 #
-# Copyright 2007-2013, Michael Boelen
-# Copyright 2007-2021, CISOfy
+# Copyright (c) Michael Boelen, CISOfy, and many contributors.
 #
-# Website  : https://cisofy.com
-# Blog     : http://linux-audit.com
+# Website  : https://cisofy.com/
+# Blog     : https://linux-audit.com/
 # GitHub   : https://github.com/CISOfy/lynis
 #
 # Lynis comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
@@ -881,15 +880,22 @@
                     AddHP 3 3
                     if IsDebug; then Display --indent 6 --text "- Module ${FS} not present in the kernel" --result OK --color GREEN; fi
                 fi
-                FIND=$(${LSBINARY} ${ROOTDIR}etc/modprobe.d/* 2> /dev/null)
-                if [ -n "${FIND}" ]; then
-                    FIND1=$(${GREPBINARY} -E "^blacklist[[:space:]]+${FS}$" ${ROOTDIR}etc/modprobe.d/* | ${GREPBINARY} -v "#")
-                    FIND2=$(${GREPBINARY} -E "^install[[:space:]]+${FS}[[:space:]]+/bin/(true|false)$" ${ROOTDIR}etc/modprobe.d/* | ${GREPBINARY} -v "#")
-                        if [ -n "${FIND1}" ] || [ -n "${FIND2}" ]; then
-                            Display --indent 4 --text "- Module $FS is blacklisted" --result "OK" --color GREEN
-                            LogText "Result: module ${FS} is blacklisted"
+                
+                for SUBDIR in "${ROOTDIR}etc" "${ROOTDIR}usr/lib"; do
+                    if [ -d "${SUBDIR}/modprobe.d" ]; then
+                        LogText "Result: directory ${SUBDIR}/modprobe.d exists"
+                        FIND=$(${LSBINARY} "${SUBDIR}/modprobe.d/*" 2> /dev/null)
+                        if [ -n "${FIND}" ]; then
+                            FIND1=$(${GREPBINARY} -E "^blacklist[[:space:]]+${FS}$" ${ROOTDIR}etc/modprobe.d/* | ${GREPBINARY} -v "#")
+                            FIND2=$(${GREPBINARY} -E "^install[[:space:]]+${FS}[[:space:]]+/bin/(true|false)$" ${ROOTDIR}etc/modprobe.d/* | ${GREPBINARY} -v "#")
+                            if [ -n "${FIND1}" ] || [ -n "${FIND2}" ]; then
+                                Display --indent 4 --text "- Module $FS is blacklisted" --result "OK" --color GREEN
+                                LogText "Result: module ${FS} is blacklisted"
+                                break
+                            fi
                         fi
-                fi
+                    fi
+                done
             done
             if [ ${FOUND} -eq 1 ]; then
                 Display --indent 4 --text "- Discovered kernel modules: ${AVAILABLE_MODPROBE_FS}"
